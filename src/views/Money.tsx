@@ -101,7 +101,8 @@ function Money() {
             defaultValue={moment(currentDate, dateFormat)}
             allowClear={false}
             open={open}
-            suffixIcon='' />
+            suffixIcon=''
+            onClick={openDatePicker} />
         <DownOutlined onClick={openDatePicker} />
 
         <CategorySection value={selected.category}

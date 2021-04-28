@@ -33,7 +33,14 @@ const NumberPadSection: React.FC<Props> = (props) => {
         if(output === '0'){
           setOutput(text)
         }else{
-          setOutput(output + text)
+          if(output.indexOf('.') > -1 ){
+            const index = output.indexOf('.')
+            if(index + 2 >= output.length){
+              setOutput(output + text)
+            }
+          }else{
+            setOutput(output + text)
+          }
         }
       }
       if(text === '删除'){

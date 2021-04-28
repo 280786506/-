@@ -5,7 +5,7 @@ import { useTags } from "hooks/useTags";
 import day from 'dayjs'
 import Money from 'views/Money';
 import { useDisplayFormState } from "hooks/usedisplay";
-import { Wrapper, Title, BackGround, Total, Content, Note, Scroll, Button, Display, Flex, Icon } from "./Statistics/Statistics"
+import { Wrapper, Title, BackGround, Total, Content, Note, Scroll, Button, Display, Flex, Icon, Mask } from "./Statistics/Statistics"
 
 
 import { DatePicker } from 'antd';
@@ -16,6 +16,8 @@ import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
 import { SkinTwoTone, BankTwoTone, SmileTwoTone, CarTwoTone, PlusSquareTwoTone, DollarCircleTwoTone } from '@ant-design/icons';
+
+
 
 type RecordItem = {
   tagIds: number[]
@@ -86,7 +88,7 @@ function Statistics() {
 
     const newn = JSON.parse(JSON.stringify(n))
 
-    newn.sort((a: any, b: any)=>{
+    newn.sort((a: any, b: any) => {
       let A_Y = a.date.split('年')
       let B_Y = b.date.split('年')
 
@@ -103,7 +105,7 @@ function Statistics() {
       b['m'] = B_M[0]
       b['d'] = B_D[0]
 
-       if (a.y === b.y) {
+      if (a.y === b.y) {
 
         if (a.m === b.m) {
 
@@ -113,24 +115,24 @@ function Statistics() {
 
           } else {
 
-              return b.d - a.d
+            return b.d - a.d
 
           }
 
         } else {
 
-          return b.m-a.m
+          return b.m - a.m
 
         }
 
       } else {
 
-        return b.y-a.y
+        return b.y - a.y
 
       }
 
     })
-    
+
     setNewRecords(newn)
     setIncome(decimal(_income))
     setExpenditure(decimal(_expenditure))
@@ -152,20 +154,20 @@ function Statistics() {
           if (A_D[0] === B_D[0]) {
             return b - a
           } else {
-            console.log(A_D[0] ,B_D[0])
-            if(A_D[0] > B_D[0]){
+            console.log(A_D[0], B_D[0])
+            if (A_D[0] > B_D[0]) {
               console.log(5)
-              return b-a
-            }else{
+              return b - a
+            } else {
               console.log(6)
-              return a-b
+              return a - b
             }
           }
         } else {
-          return a-b
+          return a - b
         }
       } else {
-        return a-b
+        return a - b
       }
       // const a_Y = a.date.split('年')
       // const b_Y = b.date.split('年')
@@ -174,6 +176,7 @@ function Statistics() {
 
   let { display, setDisplay } = useDisplayFormState()
   const add = () => {
+    setOpen(false)
     setDisplay(true)
   }
 
@@ -212,7 +215,9 @@ function Statistics() {
     const SpecificStory = components[name];
     return <SpecificStory />;
   }
-
+  const close = () => {
+    setDisplay(false)
+  }
 
   return (
     <Layout>
@@ -228,7 +233,9 @@ function Statistics() {
             defaultValue={moment(currentDate, dateFormat)}
             allowClear={false}
             open={open}
-            suffixIcon='' />
+            suffixIcon=''
+            onClick={openDatePicker}
+             />
           <DownOutlined onClick={openDatePicker} />
           <Total>
             <div>本月总支出
@@ -262,9 +269,12 @@ function Statistics() {
         </Scroll>
 
         {display &&
-          <Display>
-            <Money></Money>
-          </Display>
+          <div>
+            <Mask onClick={close}/>
+            <Display >
+              <Money></Money>
+            </Display>
+          </div>
         }
 
 

@@ -12,10 +12,11 @@ const Wrapper = styled.div`
   padding:4px 0;
  }
  .anticon {
-   color:#fff
+   color:#fff;
+   margin-left:-20px
  }
  .ant-picker.ant-picker-borderless{
-   width:85px;
+   width:100px;
  }
  .ant-picker-input > input{
    color:#fff
@@ -105,12 +106,11 @@ const Button = styled.button`
 const Display = styled.div`
   position:absolute;
   z-index:10;
-  top:0;
+  bottom:0;
   width:100%;
   display: flex;
   flex-direction: column-reverse;
-  height: 100vh;
-  background:rgba(0,0,0,0.5);
+  /* height: 100vh; */
 `
 
 const Icon = styled.span`
@@ -119,4 +119,14 @@ const Icon = styled.span`
   margin-right:5px;
   border-radius:8px;
 `
-export {Flex,Wrapper,Title,BackGround,Total,Content,Note,Scroll,Button,Display,Icon}
+
+const Mask = styled.div`
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,0.5);
+
+`
+export {Flex,Wrapper,Title,BackGround,Total,Content,Note,Scroll,Button,Display,Icon,Mask}
