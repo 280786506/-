@@ -1,25 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+
+import Tags from 'views/Tags';
+import Money from 'views/Money';
+import Statistics from 'views/Statistics';
+import NoMatch from 'views/NoMatch';
+import Tag from 'views/Tag';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        {/* 默认路由 */}
+        <Redirect exact from="/" to="statistics"></Redirect>
+        {/* <Route exact path="/tags">
+          <Tags />
+        </Route>
+        <Route exact path="/tags/:id">
+          <Tag />
+        </Route>
+        <Route exact path="/money">
+          <Money />
+        </Route> */}
+        <Route exact path="/statistics">
+          <Statistics />
+        </Route>
+        {/* 404 */}
+        <Route path="*">
+          <NoMatch></NoMatch>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
